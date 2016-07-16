@@ -4,11 +4,21 @@
 # ROS-Indigo (the most recent update)
 # SocketCAN(ESD CAN card (PLX90xx), sja1000 kernel driver)
 
-sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
-sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net --recv-key 0xB01FA116
+get_sudo() {
+    uid="$(id -u)"
+    SUDO="sudo"
+    if [[ $uid -eq 0 ]]
+    then
+        SUDO=""
+    fi
+}
+get_sudo
+
+$SUDO sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+$SUDO apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net --recv-key 0xB01FA116
 
 # install Indigo and some dep packages on a fresh ubuntu 14.04
-sudo apt-get update && sudo apt-get install -y ros-indigo-desktop        \
+$SUDO apt-get update && $SUDO apt-get install -y ros-indigo-desktop        \
 	ros-indigo-libntcan ros-indigo-libpcan ros-indigo-controller-manager \
 	ros-indigo-controller-manager-msgs ros-indigo-joint-limits-interface \
 	ros-indigo-cob-srvs ros-indigo-cob-control-mode-adapter              \
@@ -16,7 +26,7 @@ sudo apt-get update && sudo apt-get install -y ros-indigo-desktop        \
 	python-rosinstall python-wstool
 
 # Initialize rosdep
-sudo rosdep init
+$SUDO rosdep init
 rosdep update
 
 # prepare catkin workspace
@@ -56,10 +66,10 @@ echo "source $HOME/moveit/devel/setup.bash" >> $HOME/.bashrc
 source $HOME/moveit/devel/setup.bash
 
 # prepare can0
-sudo ip link set dev can0 down
-sudo ip link set can0 type can bitrate 500000
-sudo ip link set dev can0 up
-sudo ifconfig can0 txqueuelen 20
+$SUDO ip link set dev can0 down
+$SUDO ip link set can0 type can bitrate 500000
+$SUDO ip link set dev can0 up
+$SUDO ifconfig can0 txqueuelen 20
 
 echo "Installation done successfully."
 

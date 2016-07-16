@@ -3,7 +3,17 @@
 # full documentation: http://moveit.ros.org/install/
 # OS: ubuntu 14.04
 
-sudo apt-get update && sudo apt-get install -y python-wstool
+get_sudo() {
+    uid="$(id -u)"
+    SUDO="sudo"
+    if [[ $uid -eq 0 ]]
+    then
+        SUDO=""
+    fi
+}
+get_sudo
+
+$SUDO apt-get update && $SUDO apt-get install -y python-wstool
 mkdir -p $HOME/moveit/src
 cd $HOME/moveit/src
 
