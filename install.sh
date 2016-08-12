@@ -37,13 +37,15 @@ catkin_init_workspace
 git clone https://github.com/ammarnajjar/ros_canopen.git -b no-lost-arbitration-handling
 git clone https://github.com/ipa320/schunk_robots.git -b indigo_dev
 git clone https://github.com/ammarnajjar/lwa4p_moveit_config.git
+git clone https://github.com/ammarnajjar/iai_kinect2.git -b prokon
 cd ..
 echo ">> Current directory: $(pwd)"
 rosdep install --from-paths src --ignore-src --rosdistro indigo -y
 
 # build catkin workspace
 source /opt/ros/indigo/setup.bash
-catkin_make | tee catkin.log
+catkin_make -DCMAKE_BUILD_TYPE="Release" | tee catkin.log
+
 echo "source $HOME/catkin_ws/devel/setup.bash" >> $HOME/.bashrc
 source $HOME/catkin_ws/devel/setup.bash
 

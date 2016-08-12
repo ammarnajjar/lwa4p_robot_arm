@@ -34,11 +34,10 @@ mkdir -p $HOME/catkin_ws/src
 cd $HOME/catkin_ws/src
 echo ">> Current directory: $(pwd)"
 catkin_init_workspace
-# git clone https://github.com/ipa320/schunk_modular_robotics.git -b indigo-devel
-# git clone https://github.com/ros-industrial/ros_canopen.git -b indigo-devel
 git clone https://github.com/ammarnajjar/ros_canopen.git -b no-lost-arbitration-handling
 git clone https://github.com/ipa320/schunk_robots.git -b indigo_dev
 git clone https://github.com/ammarnajjar/lwa4p_moveit_config.git
+git clone https://github.com/ammarnajjar/iai_kinect2.git -b prokon
 cd ..
 
 # install other dep packages
@@ -46,7 +45,7 @@ echo ">> Current directory: $(pwd)"
 rosdep install -y --from-paths src --ignore-src --rosdistro indigo
 
 # build
-catkin_make | tee catkin.log
+catkin_make -DCMAKE_BUILD_TYPE="Release" | tee catkin.log
 echo "source $HOME/catkin_ws/devel/setup.bash" >> $HOME/.bashrc
 
 # prepare can0
