@@ -38,6 +38,7 @@ git clone https://github.com/ammarnajjar/ros_canopen.git -b no-lost-arbitration-
 git clone https://github.com/ipa320/schunk_robots.git -b indigo_dev
 git clone https://github.com/ammarnajjar/lwa4p_moveit_config.git
 git clone https://github.com/ammarnajjar/iai_kinect2.git -b prokon
+git clone https://github.com/ammarnajjar/pick_place.git
 cd ..
 echo ">> Current directory: $(pwd)"
 rosdep install --from-paths src --ignore-src --rosdistro indigo -y
